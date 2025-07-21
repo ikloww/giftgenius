@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GiftGenius</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #ddd6fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+        }
+        
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            color: #6b7280;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #6b7280;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #8b5cf6;
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .form-input-group {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 24px;
+        }
+        
+        .forgot-password a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+        
+        .login-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .login-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .terms-text {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .terms-text a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .help-link {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .help-link a {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .help-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .login-card {
+                margin: 0 16px;
+                padding: 24px;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header simplificado -->
+    <header class="header scrolled">
+        <div class="container">
+            <div class="nav">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">GiftGenius</span>
+                        <span class="logo-badge">IA</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h1 class="login-title">Bem-vindo ao GiftGenius</h1>
+                <p class="login-subtitle">
+                    Entre na sua conta ou crie uma nova para acessar seus presentes salvos
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('login')">Entrar</div>
+                <div class="tab" onclick="switchTab('register')">Criar Conta</div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="tab-content active" id="login-content">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">Email</label>
+                        <div class="form-input-group">
+                            <i class="fas fa-envelope form-icon"></i>
+                            <input type="email" id="login-email" class="form-input" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Senha</label>
+                        <div class="form-input-group">
+                            <i class="fas fa-lock form-icon"></i>
+                            <input type="password" id="login-password" class="form-input" placeholder="Sua senha" required>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#">Esqueci minha senha</a>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Entrar
+                    </button>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div class="tab-content" id="register-content">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label class="form-label" for="register-name">Nome completo</label>
+                        <div class="form-input-group">
+                            <i class="fas fa-user form-icon"></i>
+                            <input
+                                id="register-name"
+                                type="text"
+                                placeholder="Seu nome completo"
+                                class="form-input"
+                                required
+                            />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="register-email">Email</label>
+                        <div class="form-input-group">
+                            <i class="fas fa-envelope form-icon"></i>
+                            <input
+                                id="register-email"
+                                type="email"
+                                placeholder="seu@email.com"
+                                class="form-input"
+                                required
+                            />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="register-password">Senha</label>
+                        <div class="form-input-group">
+                            <i class="fas fa-lock form-icon"></i>
+                            <input
+                                id="register-password"
+                                type="password"
+                                placeholder="Criar uma senha segura"
+                                class="form-input"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="terms-text">
+                        Ao criar uma conta, você concorda com nossos 
+                        <a href="#">Termos de Uso</a> e 
+                        <a href="#">Política de Privacidade</a>
+                    </div>
+
+                    <button type="submit" class="login-button" style="margin-top: 20px;">
+                        Criar conta gratuita
+                    </button>
+                </form>
+            </div>
+
+            <div class="help-link">
+                <p>
+                    Precisa de ajuda? 
+                    <a href="#">Entre em contato</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        function switchTab(tabName) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-content').classList.add('active');
+        }
+
+        // Login form handler
+        if (document.getElementById('login-form')) {
+            document.getElementById('login-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const button = e.target.querySelector('button[type="submit"]');
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                button.textContent = 'Entrando...';
+                button.disabled = true;
+                
+                try {
+                    const result = await window.authManager.login(email, password);
+                    
+                    if (result.success) {
+                        alert('Login realizado com sucesso!');
+                        window.location.href = '/';
+                    } else {
+                        if (result.needsVerification) {
+                            alert('Email não verificado. Redirecionando para verificação...');
+                            localStorage.setItem('verification_email', email);
+                            window.location.href = '/verify-email?email=' + encodeURIComponent(email);
+                        } else {
+                            alert('Erro: ' + result.error);
+                        }
+                        button.textContent = 'Entrar';
+                        button.disabled = false;
+                    }
+                } catch (error) {
+                    alert('Erro de conexão. Tente novamente.');
+                    button.textContent = 'Entrar';
+                    button.disabled = false;
+                }
+            });
+        }
+
+        // Register form handler
+        if (document.getElementById('register-form')) {
+            document.getElementById('register-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const button = e.target.querySelector('button[type="submit"]');
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                
+                button.textContent = 'Criando conta...';
+                button.disabled = true;
+                
+                try {
+                    const result = await window.authManager.register(name, email, password);
+                    
+                    if (result.success) {
+                        if (result.needsVerification) {
+                            if (result.debugCode) {
+                                alert(`Conta criada! Email não configurado.\n\nCódigo de verificação: ${result.debugCode}\n\nUse este código na próxima tela.`);
+                            } else {
+                                alert('Conta criada! Verifique seu email para ativar.');
+                            }
+                            localStorage.setItem('verification_email', email);
+                            window.location.href = '/verify-email?email=' + encodeURIComponent(email);
+                        } else {
+                            alert('Conta criada com sucesso!');
+                            window.location.href = '/';
+                        }
+                    } else {
+                        if (result.needsVerification) {
+                            // Mostrar código se email não estiver configurado
+                            if (result.debugCode) {
+                                alert(`${result.message}\n\nCódigo: ${result.debugCode}`);
+                            } else {
+                                alert(result.message);
+                            }
+                            localStorage.setItem('verification_email', email);
+                            window.location.href = '/verify-email?email=' + encodeURIComponent(email);
+                        } else {
+                            alert('Erro: ' + result.error);
+                        }
+                        button.textContent = 'Criar conta gratuita';
+                        button.disabled = false;
+                    }
+                } catch (error) {
+                    alert('Erro de conexão. Tente novamente.');
+                    button.textContent = 'Criar conta gratuita';
+                    button.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

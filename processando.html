@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processando - GiftGenius</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .processing-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #ddd6fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .processing-card {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .processing-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            color: white;
+            font-size: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .processing-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+        
+        .processing-subtitle {
+            color: #6b7280;
+            font-size: 18px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .progress-section {
+            margin-bottom: 32px;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .processing-steps {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+            opacity: 0.4;
+        }
+        
+        .step-item.active {
+            opacity: 1;
+            color: #8b5cf6;
+            transform: scale(1.02);
+        }
+        
+        .step-item.completed {
+            opacity: 1;
+            color: #10b981;
+        }
+        
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: #f3f4f6;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item.active .step-icon {
+            background: #ede9fe;
+            color: #8b5cf6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .step-item.completed .step-icon {
+            background: #dcfce7;
+            color: #10b981;
+        }
+        
+        .step-text {
+            font-weight: 500;
+        }
+        
+        .step-item.active .step-text {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .processing-tip {
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        
+        .tip-text {
+            font-size: 14px;
+            color: #7c3aed;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .processing-card {
+                padding: 40px 24px;
+            }
+            
+            .processing-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="processing-container">
+        <div class="processing-card">
+            <div class="processing-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            
+            <h1 class="processing-title">Encontrando seus presentes...</h1>
+            
+            <p class="processing-subtitle">
+                Nossa IA está analisando as informações e buscando as melhores opções para você
+            </p>
+            
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span>Progresso</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="processing-steps">
+                <div class="step-item" id="step-1">
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <span class="step-text">Analisando perfil da pessoa...</span>
+                </div>
+                
+                <div class="step-item" id="step-2">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <span class="step-text">Buscando produtos perfeitos...</span>
+                </div>
+                
+                <div class="step-item" id="step-3">
+                    <div class="step-icon">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <span class="step-text">Personalizando sugestões...</span>
+                </div>
+                
+                <div class="step-item" id="step-4">
+                    <div class="step-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <span class="step-text">Finalizando lista de presentes...</span>
+                </div>
+            </div>
+            
+            <div class="processing-tip">
+                <p class="tip-text">
+                    💡 <strong>Dica:</strong> Enquanto processamos, que tal pensar em uma mensagem especial 
+                    para acompanhar o presente?
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            { id: 'step-1', duration: 2000 },
+            { id: 'step-2', duration: 3000 },
+            { id: 'step-3', duration: 2500 },
+            { id: 'step-4', duration: 1500 }
+        ];
+
+        let currentStep = 0;
+        let progress = 0;
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+
+        function updateProgress(targetProgress) {
+            const increment = (targetProgress - progress) / 50; // 50 steps for smooth animation
+            
+            const animate = () => {
+                progress += increment;
+                if (progress >= targetProgress) {
+                    progress = targetProgress;
+                } else {
+                    requestAnimationFrame(animate);
+                }
+                
+                progressFill.style.width = progress + '%';
+                progressPercent.textContent = Math.round(progress) + '%';
+            };
+            
+            animate();
+        }
+
+        function runStep(stepIndex) {
+            if (stepIndex < steps.length) {
+                const step = steps[stepIndex];
+                const stepElement = document.getElementById(step.id);
+                
+                // Ativar step atual
+                stepElement.classList.add('active');
+                
+                // Atualizar progresso
+                const targetProgress = ((stepIndex + 1) / steps.length) * 100;
+                updateProgress(targetProgress);
+                
+                setTimeout(() => {
+                    // Completar step atual
+                    stepElement.classList.remove('active');
+                    stepElement.classList.add('completed');
+                    
+                    // Próximo step
+                    runStep(stepIndex + 1);
+                }, step.duration);
+            } else {
+                // Processamento completo
+                setTimeout(() => {
+                    // Buscar presentes reais
+                    findRealGifts();
+                }, 1000);
+            }
+        }
+
+        async function findRealGifts() {
+            try {
+                console.log('🔍 Iniciando busca de presentes...');
+                
+                // Carregar dados do perfil
+                const profileData = JSON.parse(localStorage.getItem('giftgenius_profile') || '{}');
+                console.log('📋 Dados do perfil:', profileData);
+                
+                if (!profileData.age || !profileData.interests) {
+                    throw new Error('Dados do perfil incompletos. Refaça o questionário.');
+                }
+                
+                // Verificar se usuário está logado
+                const token = localStorage.getItem('giftgenius_token');
+                if (!token) {
+                    throw new Error('Você precisa estar logado para buscar presentes');
+                }
+                
+                console.log('🤖 Enviando para API...');
+                
+                // Buscar presentes via API
+                const response = await fetch('/api/gifts/find-gifts', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(profileData)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erro na busca de presentes');
+                }
+                
+                const results = await response.json();
+                console.log('🎁 Presentes encontrados:', results);
+                
+                // Salvar resultados
+                localStorage.setItem('giftgenius_results', JSON.stringify(results));
+                
+                console.log('✅ Redirecionando para resultados...');
+                // Redirecionar para resultados
+                setTimeout(() => {
+                    window.location.href = '/resultados';
+                }, 500);
+                
+            } catch (error) {
+                console.error('Erro ao buscar presentes:', error);
+                
+                // Mostrar erro na tela
+                document.querySelector('.processing-title').textContent = '❌ Erro na busca';
+                document.querySelector('.processing-subtitle').textContent = error.message;
+                
+                // Botão para tentar novamente
+                const card = document.querySelector('.processing-card');
+                card.innerHTML += `
+                    <div style="margin-top: 20px;">
+                        <button onclick="window.location.href='/questionario'" 
+                                style="background: #8b5cf6; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer;">
+                            🔄 Tentar Novamente
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // Iniciar processamento
+        runStep(0);
+    </script>
+</body>
+</html>

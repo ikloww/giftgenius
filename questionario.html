@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário - GiftGenius</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .questionnaire-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #ddd6fe 100%);
+            padding: 120px 0 60px;
+        }
+        
+        .questionnaire-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 25%;
+        }
+        
+        .step-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-help {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        
+        .step-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .btn-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-back {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .btn-back:hover:not(:disabled) {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+        
+        .btn-next {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+        }
+        
+        .btn-next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .questionnaire-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .questionnaire-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .questionnaire-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .questionnaire-subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        .step-content {
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        .step-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .step-description {
+            color: #6b7280;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .logo-badge {
+            background: #8b5cf6;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .questionnaire-card {
+                margin: 0 16px;
+                padding: 24px;
+            }
+            
+            .questionnaire-title {
+                font-size: 1.5rem;
+            }
+            
+            .step-navigation {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header simplificado -->
+    <header class="header scrolled">
+        <div class="container">
+            <div class="nav">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">GiftGenius</span>
+                        <span class="logo-badge">IA</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="questionnaire-container">
+        <div class="questionnaire-card">
+            <div class="questionnaire-header">
+                <div class="questionnaire-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h1 class="questionnaire-title">Questionário Inteligente</h1>
+                <p class="questionnaire-subtitle">
+                    <i class="fas fa-sparkles"></i>
+                    O GiftGenius vai encontrar o presente perfeito
+                </p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="step-info">
+                <span>Etapa <span id="current-step">1</span> de 4</span>
+                <span><span id="progress-percent">25</span>%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Formulário -->
+            <form id="questionnaire-form">
+                <!-- Etapa 1: Informações Básicas -->
+                <div class="step-content active" data-step="1">
+                    <div class="step-header">
+                        <h2 class="step-title">Conte-nos sobre a pessoa</h2>
+                        <p class="step-description">Informações básicas para personalizarmos as sugestões</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="recipient-name">Nome da pessoa (opcional)</label>
+                        <input type="text" id="recipient-name" class="form-input" placeholder="Ex: Maria, João...">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="age">Idade *</label>
+                        <select id="age" class="form-select" required>
+                            <option value="">Selecione a faixa etária</option>
+                            <option value="0-12">0-12 anos (Criança)</option>
+                            <option value="13-17">13-17 anos (Adolescente)</option>
+                            <option value="18-25">18-25 anos (Jovem adulto)</option>
+                            <option value="26-35">26-35 anos (Adulto jovem)</option>
+                            <option value="36-50">36-50 anos (Adulto)</option>
+                            <option value="51-65">51-65 anos (Adulto maduro)</option>
+                            <option value="65+">65+ anos (Idoso)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gender">Gênero *</label>
+                        <select id="gender" class="form-select" required>
+                            <option value="">Selecione o gênero</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="nao-binario">Não-binário</option>
+                            <option value="prefiro-nao-dizer">Prefiro não dizer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="relationship">Qual sua relação com essa pessoa? *</label>
+                        <select id="relationship" class="form-select" required>
+                            <option value="">Selecione o relacionamento</option>
+                            <option value="mae">Mãe</option>
+                            <option value="pai">Pai</option>
+                            <option value="irmao">Irmão/Irmã</option>
+                            <option value="filho">Filho/Filha</option>
+                            <option value="conjuge">Cônjuge/Namorado(a)</option>
+                            <option value="amigo">Amigo(a)</option>
+                            <option value="colega">Colega de trabalho</option>
+                            <option value="parente">Outro parente</option>
+                            <option value="conhecido">Conhecido</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Etapa 2: Interesses e Personalidade -->
+                <div class="step-content" data-step="2">
+                    <div class="step-header">
+                        <h2 class="step-title">Interesses e Personalidade</h2>
+                        <p class="step-description">Nos ajude a entender melhor do que ela gosta</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="interests">Quais são os principais interesses dela? *</label>
+                        <textarea id="interests" class="form-textarea" placeholder="Ex: leitura, culinária, esportes, tecnologia, arte, música, viagem, jardinagem..." required></textarea>
+                        <div class="form-help">Seja específico! Quanto mais detalhes, melhores serão as sugestões.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="personality">Como você descreveria a personalidade dela? *</label>
+                        <select id="personality" class="form-select" required>
+                            <option value="">Selecione o tipo de personalidade</option>
+                            <option value="pratica">Prática e objetiva</option>
+                            <option value="criativa">Criativa e artística</option>
+                            <option value="aventureira">Aventureira e espontânea</option>
+                            <option value="intelectual">Intelectual e reflexiva</option>
+                            <option value="social">Social e extrovertida</option>
+                            <option value="calma">Calma e introvertida</option>
+                            <option value="elegante">Elegante e sofisticada</option>
+                            <option value="divertida">Divertida e descontraída</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Etapa 3: Ocasião e Orçamento -->
+                <div class="step-content" data-step="3">
+                    <div class="step-header">
+                        <h2 class="step-title">Ocasião e Orçamento</h2>
+                        <p class="step-description">Últimos detalhes para personalizarmos sua busca</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="occasion">Qual é a ocasião? *</label>
+                        <select id="occasion" class="form-select" required>
+                            <option value="">Selecione a ocasião</option>
+                            <option value="aniversario">Aniversário</option>
+                            <option value="natal">Natal</option>
+                            <option value="dia-das-maes">Dia das Mães</option>
+                            <option value="dia-dos-pais">Dia dos Pais</option>
+                            <option value="dia-dos-namorados">Dia dos Namorados</option>
+                            <option value="casamento">Casamento</option>
+                            <option value="formatura">Formatura</option>
+                            <option value="novo-emprego">Novo emprego</option>
+                            <option value="sem-ocasiao">Sem ocasião específica</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="budget">Qual seu orçamento? *</label>
+                        <select id="budget" class="form-select" required>
+                            <option value="">Selecione sua faixa de preço</option>
+                            <option value="ate-50">Até R$ 50</option>
+                            <option value="50-100">R$ 50 - R$ 100</option>
+                            <option value="100-200">R$ 100 - R$ 200</option>
+                            <option value="200-500">R$ 200 - R$ 500</option>
+                            <option value="500-1000">R$ 500 - R$ 1.000</option>
+                            <option value="1000-plus">Mais de R$ 1.000</option>
+                            <option value="sem-limite">Sem limite definido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="additional-info">Alguma informação adicional?</label>
+                        <textarea id="additional-info" class="form-textarea" placeholder="Ex: ela já tem X, não gosta de Y, prefere cores específicas..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Etapa 4: Confirmação -->
+                <div class="step-content" data-step="4">
+                    <div class="step-header">
+                        <h2 class="step-title">Confirme seu pedido</h2>
+                        <p class="step-description">Revise as informações e escolha seu plano</p>
+                    </div>
+
+                    <div id="summary" style="background: #f9fafb; padding: 24px; border-radius: 12px; margin-bottom: 24px;">
+                        <!-- Resumo será preenchido via JavaScript -->
+                    </div>
+
+                    <div style="border: 2px solid #8b5cf6; background: #f3f4f6; padding: 24px; border-radius: 12px;">
+                        <h3 style="color: #7c3aed; font-weight: 700; margin-bottom: 16px;">
+                            Plano Selecionado: <span id="selected-plan">Essencial</span>
+                        </h3>
+                        <div id="plan-details">
+                            <!-- Detalhes do plano serão preenchidos via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navegação -->
+                <div class="step-navigation">
+                    <button type="button" class="btn-nav btn-back" id="btn-back" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        Voltar
+                    </button>
+                    <button type="button" class="btn-nav btn-next" id="btn-next">
+                        Próximo
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Estado do questionário
+        let currentStep = 1;
+        const totalSteps = 4;
+        let formData = {};
+        
+        // Elementos DOM
+        const form = document.getElementById('questionnaire-form');
+        const btnBack = document.getElementById('btn-back');
+        const btnNext = document.getElementById('btn-next');
+        const progressFill = document.getElementById('progress-fill');
+        const currentStepSpan = document.getElementById('current-step');
+        const progressPercent = document.getElementById('progress-percent');
+
+        // Obter plano da URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? 'essential' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        const selectedPlan = getUrlParameter('plan');
+
+        // Atualizar interface
+        function updateUI() {
+            // Atualizar progress bar
+            const progress = (currentStep / totalSteps) * 100;
+            progressFill.style.width = progress + '%';
+            currentStepSpan.textContent = currentStep;
+            progressPercent.textContent = Math.round(progress);
+
+            // Mostrar/ocultar steps
+            document.querySelectorAll('.step-content').forEach((step, index) => {
+                step.classList.toggle('active', index + 1 === currentStep);
+            });
+
+            // Atualizar botões
+            btnBack.disabled = currentStep === 1;
+            
+            if (currentStep === totalSteps) {
+                btnNext.innerHTML = '<i class="fas fa-sparkles"></i> Finalizar Pedido';
+            } else {
+                btnNext.innerHTML = 'Próximo <i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // Validar step atual
+        function validateCurrentStep() {
+            const currentStepElement = document.querySelector(`.step-content[data-step="${currentStep}"]`);
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Coletar dados do formulário
+        function collectFormData() {
+            formData = {
+                recipientName: document.getElementById('recipient-name').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                relationship: document.getElementById('relationship').value,
+                interests: document.getElementById('interests').value,
+                personality: document.getElementById('personality').value,
+                occasion: document.getElementById('occasion').value,
+                budget: document.getElementById('budget').value,
+                additionalInfo: document.getElementById('additional-info').value,
+                plan: selectedPlan
+            };
+        }
+
+        // Atualizar resumo
+        function updateSummary() {
+            collectFormData();
+            
+            const summary = document.getElementById('summary');
+            summary.innerHTML = `
+                <h3 style="font-weight: 700; color: #1f2937; margin-bottom: 16px;">Resumo das informações:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 14px;">
+                    <div><strong>Idade:</strong> ${formData.age}</div>
+                    <div><strong>Gênero:</strong> ${formData.gender}</div>
+                    <div><strong>Relação:</strong> ${formData.relationship}</div>
+                    <div><strong>Ocasião:</strong> ${formData.occasion}</div>
+                    <div><strong>Orçamento:</strong> ${formData.budget}</div>
+                    <div><strong>Personalidade:</strong> ${formData.personality}</div>
+                </div>
+                ${formData.interests ? `<div style="margin-top: 12px;"><strong>Interesses:</strong> ${formData.interests}</div>` : ''}
+            `;
+
+            // Atualizar detalhes do plano
+            const planDetails = document.getElementById('plan-details');
+            const selectedPlanSpan = document.getElementById('selected-plan');
+            
+            if (selectedPlan === 'supremo') {
+                selectedPlanSpan.textContent = 'Supremo';
+                planDetails.innerHTML = `
+                    <div style="font-size: 2rem; font-weight: 800; color: #7c3aed; margin-bottom: 8px;">R$ 35,50</div>
+                    <ul style="font-size: 14px; color: #7c3aed; line-height: 1.6;">
+                        <li>✓ 15 sugestões premium</li>
+                        <li>✓ Cartão digital personalizado</li>
+                        <li>✓ PDF estilizado para download</li>
+                        <li>✓ Bônus exclusivo</li>
+                        <li>✓ Acesso vitalício ao conteúdo</li>
+                    </ul>
+                `;
+            } else {
+                selectedPlanSpan.textContent = 'Essencial';
+                planDetails.innerHTML = `
+                    <div style="font-size: 2rem; font-weight: 800; color: #7c3aed; margin-bottom: 8px;">R$ 14,90</div>
+                    <ul style="font-size: 14px; color: #7c3aed; line-height: 1.6;">
+                        <li>✓ 5 sugestões personalizadas</li>
+                        <li>✓ Links diretos de compra</li>
+                        <li>✓ Acesso rápido aos resultados</li>
+                    </ul>
+                `;
+            }
+        }
+
+        // Função async para lidar com o checkout
+        async function handleCheckout() {
+            // Finalizar pedido
+            collectFormData();
+            console.log('Dados do formulário:', formData);
+            
+            // Iniciar processo de pagamento
+            btnNext.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando...';
+            btnNext.disabled = true;
+            
+            // Verificar se usuário está logado
+            if (window.authManager && !window.authManager.isAuthenticated()) {
+                // Salvar dados e redirecionar para login
+                localStorage.setItem('giftgenius_profile', JSON.stringify(formData));
+                alert('Você precisa estar logado para continuar. Redirecionando...');
+                window.location.href = '/login';
+                return;
+            }
+            
+            // Criar sessão de checkout do Stripe
+            try {
+                // Verificar se authManager existe
+                if (!window.authManager) {
+                    throw new Error('Sistema de autenticação não carregado');
+                }
+
+                const response = await window.authManager.makeAuthenticatedRequest('/api/stripe/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        plan: formData.plan,
+                        profile: formData 
+                    })
+                });
+                
+                if (response.ok) {
+                    const { sessionId } = await response.json();
+                    
+                    // Salvar dados do perfil
+                    localStorage.setItem('giftgenius_profile', JSON.stringify(formData));
+                    
+                    // Verificar se Stripe está carregado
+                    if (typeof Stripe === 'undefined') {
+                        throw new Error('Stripe não foi carregado');
+                    }
+                    
+                    // Redirecionar para Stripe Checkout
+                    const stripe = Stripe('pk_test_51RlZcbQwaHfGw9x9Yt3lND3v8vYwqZ6jLmRmIGWFF33LHw7YaNaIo6QgxuaD9a207AUXtqWP56yodd2USpmnMM0s00hpkTq9YM'); // Substitua pela sua chave pública do Stripe
+                    await stripe.redirectToCheckout({ sessionId });
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Erro ao criar sessão de pagamento');
+                }
+            } catch (error) {
+                console.error('Erro no pagamento:', error);
+                alert('Erro ao processar pagamento: ' + error.message + '. Tente novamente.');
+                btnNext.innerHTML = '<i class="fas fa-sparkles"></i> Finalizar Pedido';
+                btnNext.disabled = false;
+            }
+        }
+
+        // Event listeners
+        btnNext.addEventListener('click', async () => {
+            if (currentStep < totalSteps) {
+                if (validateCurrentStep()) {
+                    currentStep++;
+                    updateUI();
+                    
+                    if (currentStep === 4) {
+                        updateSummary();
+                    }
+                }
+            } else {
+                // Chamar função async para checkout
+                await handleCheckout();
+            }
+        });
+
+        btnBack.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        });
+
+        // Inicializar
+        updateUI();
+        
+        // Carregar scripts necessários
+        function loadScript(src, callback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = callback;
+            script.onerror = () => console.error('Erro ao carregar script:', src);
+            document.head.appendChild(script);
+        }
+
+        // Carregar Stripe
+        loadScript('https://js.stripe.com/v3/', () => {
+            console.log('Stripe carregado com sucesso');
+        });
+
+        // Carregar script de autenticação (se existir)
+        loadScript('js/auth.js', () => {
+            console.log('Script de autenticação carregado');
+        });
+    </script>
+</body>
+</html>

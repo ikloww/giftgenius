@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftGenius - Encontre o Presente Perfeito</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-gift"></i>
+                        <div class="logo-sparkle">
+                            <i class="fas fa-sparkles"></i>
+                        </div>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">GiftGenius</span>
+                        <span class="logo-badge">IA</span>
+                    </div>
+                </div>
+
+                <nav class="nav-menu" id="nav-menu">
+                    <a href="#como-funciona" class="nav-link">Como Funciona</a>
+                    <a href="#recursos" class="nav-link">Recursos</a>
+                    <a href="#precos" class="nav-link">Preços</a>
+                    <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                </nav>
+
+                <div class="nav-buttons">
+                   
+                    <a href="login.html" class="btn btn-outline auth-login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Entrar
+                    </a>
+                    <a href="dashboard.html" class="btn btn-outline" style="display: none;" id="dashboard-btn">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="#" class="btn btn-outline auth-logout" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                    <a href="questionario.html" class="btn btn-primary">
+                        <i class="fas fa-sparkles"></i>
+                        Começar Agora
+                    </a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-sparkles"></i>
+                    <span>IA Avançada para Presentes Perfeitos</span>
+                    <span class="badge-new">Novo</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Encontre o <span class="gradient-text">Presente Ideal</span><br>
+                    em segundos
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Nossa inteligência artificial analisa personalidade, interesses e orçamento para 
+                    criar sugestões personalizadas com links diretos de compra.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="questionario.html" class="btn btn-hero">
+                        <i class="fas fa-gift"></i>
+                        Começar Agora - R$ 14,90
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <button class="btn btn-outline-white" onclick="showDemo()">
+                        <i class="fas fa-play"></i>
+                        Ver Demonstração
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item active" data-stat="0">
+                        <div class="stat-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div id="stat-0" class="stat-number">50,000+</div>
+                        <div class="stat-label">Presentes Encontrados</div>
+                    </div>
+                    <div class="stat-item" data-stat="1">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div id="stat-1" class="stat-number">98.7%</div>
+                        <div class="stat-label">Taxa de Satisfação</div>
+                    </div>
+                    <div class="stat-item" data-stat="2">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div id="stat-2" class="stat-number">2.3min</div>
+                        <div class="stat-label">Tempo Médio</div>
+                    </div>
+                    <div class="stat-item" data-stat="3">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div id="stat-3" class="stat-number">15,000+</div>
+                        <div class="stat-label">Clientes Felizes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Como Funciona</span>
+                <h2 class="section-title">3 Passos para o Presente Perfeito</h2>
+                <p class="section-subtitle">Nossa IA revolucionária torna a busca por presentes simples e eficaz</p>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon brain">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="step-number">01</div>
+                    </div>
+                    <h3 class="step-title">Análise Inteligente</h3>
+                    <p class="step-description">
+                        Responda perguntas sobre a pessoa: idade, personalidade, interesses e orçamento. 
+                        Nossa IA processa milhares de dados em segundos.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon search">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="step-number">02</div>
+                    </div>
+                    <h3 class="step-title">Busca Personalizada</h3>
+                    <p class="step-description">
+                        Algoritmos avançados analisam mais de 100.000 produtos de lojas parceiras 
+                        para encontrar opções perfeitas para o perfil.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon gift">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="step-number">03</div>
+                    </div>
+                    <h3 class="step-title">Resultados Instantâneos</h3>
+                    <p class="step-description">
+                        Receba sugestões curadas com links diretos, preços atualizados e justificativas 
+                        de por que cada presente é ideal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section id="recursos" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge green">Recursos Avançados</span>
+                <h2 class="section-title">Por que Escolher o GiftGenie?</h2>
+                <p class="section-subtitle">Tecnologia de ponta para garantir que você sempre acerte no presente</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">IA Avançada</h3>
+                    <p class="feature-description">
+                        Algoritmos de machine learning treinados com milhões de dados de preferências 
+                        e comportamentos de compra.
+                    </p>
+                    <span class="feature-stat">99.2% precisão</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Dados Seguros</h3>
+                    <p class="feature-description">
+                        Suas informações são protegidas com criptografia de nível bancário 
+                        e nunca compartilhadas.
+                    </p>
+                    <span class="feature-stat">SSL 256-bit</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Preços Atualizados</h3>
+                    <p class="feature-description">
+                        Monitoramento em tempo real de preços e disponibilidade em mais de 
+                        50 lojas parceiras.
+                    </p>
+                    <span class="feature-stat">Atualização a cada 5min</span>
+                   
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Suporte 24/7</h3>
+                    <p class="feature-description">
+                       EM BREVE
+                    </p>
+                    <span class="feature-stat">Resposta em 2min</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="feature-title">Garantia de Satisfação</h3>
+                    <p class="feature-description">
+                        Se não ficar satisfeito com as sugestões, devolvemos 100% do seu dinheiro 
+                        em até 7 dias.
+                    </p>
+                    <span class="feature-stat">Garantia total</span>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="feature-title">Resultados Comprovados</h3>
+                    <p class="feature-description">
+                        Mais de 50.000 presentes entregues com sucesso e 98.7% de taxa de 
+                        satisfação dos clientes.
+                    </p>
+                    <span class="feature-stat">50k+ sucessos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preços -->
+    <section id="precos" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge purple">Planos e Preços</span>
+                <h2 class="section-title">Escolha o Plano Ideal</h2>
+                <p class="section-subtitle">Preços transparentes e justos para encontrar o presente perfeito</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-icon essential">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="pricing-title">Essencial</h3>
+                        <p class="pricing-subtitle">Perfeito para ocasiões especiais</p>
+                        <div class="pricing-price">
+                            <span class="price-currency">R$</span>
+                            <span class="price-amount">14,90</span>
+                            <span class="price-period">por consulta</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>5 sugestões personalizadas</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Análise avançada de IA</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Links diretos de compra</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Comparação de preços</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Acesso por 30 dias</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Suporte por email</span>
+                        </div>
+                    </div>
+                    
+                    <a href="questionario.html?plan=essential" class="btn btn-pricing">
+                        Escolher Essencial
+                    </a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="popular-badge">
+                        <i class="fas fa-crown"></i>
+                        MAIS POPULAR
+                    </div>
+                    <div class="pricing-header">
+                        <div class="pricing-icon supremo">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="pricing-title">Supremo</h3>
+                        <p class="pricing-subtitle">Experiência completa e premium</p>
+                        <div class="pricing-price">
+                            <span class="price-currency">R$</span>
+                            <span class="price-amount">35,50</span>
+                            <span class="price-period">por consulta</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>15 sugestões premium</strong></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>IA ultra-avançada</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>Cartão digital personalizado</strong></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>PDF premium para download</strong></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>Guia exclusivo de presentes</strong></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span><strong>Acesso vitalício ao conteúdo</strong></span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Suporte prioritário 24/7</span>
+                        </div>
+                    </div>
+                    
+                    <a href="questionario.html?plan=supremo" class="btn btn-pricing-premium">
+                        <i class="fas fa-sparkles"></i>
+                        Escolher Supremo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pricing-guarantees">
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <span>Garantia de 7 dias</span>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span>Resultados em 2 minutos</span>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span>98.7% de satisfação</span>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <span>Pagamento seguro</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">
+                    Pronto para encontrar o presente perfeito?
+                </h2>
+                <p class="cta-subtitle">
+                    Junte-se a mais de 15.000 pessoas que já descobriram o poder da nossa IA
+                </p>
+                <div class="cta-buttons">
+                    <a href="questionario.html" class="btn btn-cta">
+                        <i class="fas fa-heart"></i>
+                        Começar Agora
+                    </a>
+                    <a href="#precos" class="btn btn-outline-white">
+                        Ver Planos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <span class="logo-name">GiftGenius</span>
+                    </div>
+                    <p class="footer-description">
+                        A primeira plataforma brasileira de inteligência artificial especializada em encontrar 
+                        o presente perfeito. Transformamos a arte de presentear em ciência.
+                    </p>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contato@giftgenius.com.br</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>(11) 99999-9999</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>São Paulo, Brasil</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Produto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#como-funciona">Como Funciona</a></li>
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#precos">Preços</a></li>
+                        <li><a href="questionario.html">Começar Agora</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Suporte</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Newsletter</h3>
+                    <p class="newsletter-text">
+                        Receba dicas semanais sobre como presentear melhor
+                    </p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <input type="email" placeholder="Seu melhor email" required>
+                        <button type="submit">Inscrever</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 GiftGenius. Todos os direitos reservados.
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-love">
+                Feito com <i class="fas fa-heart"></i> no Brasil • GiftGenius IA
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de tracking -->
+    <script src="js/stats-tracker.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/gift-finder.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
