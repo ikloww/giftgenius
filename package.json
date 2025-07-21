@@ -30,5 +30,8 @@
     "ai",
     "recommendations",
     "statistics"
-  ]
+  ],
+  "engines": {
+    "node": "20.x"
+  }
 }
