@@ -5,7 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // Se quiser trocar pra bcryptjs, só avisar
 const jwt = require('jsonwebtoken');
 const { router: statsRouter, initializeDatabase } = require('./api/stats');
 const { router: authRouter } = require('./api/auth');
@@ -14,6 +14,9 @@ const stripeRouter = require('./api/stripe');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Variável de ambiente para URL base
+const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
 
 // Middlewares
 app.use(cors());
@@ -30,28 +33,35 @@ app.use('/api/stripe', stripeRouter);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 app.get('/questionario', (req, res) => {
   res.sendFile(path.join(__dirname, 'questionario.html'));
 });
-
 app.get('/processando', (req, res) => {
   res.sendFile(path.join(__dirname, 'processando.html'));
 });
-
 app.get('/resultados', (req, res) => {
   res.sendFile(path.join(__dirname, 'resultados.html'));
 });
-
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
 });
-
 app.get('/verify-email', (req, res) => {
   res.sendFile(path.join(__dirname, 'verify-email.html'));
 });
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+// Exemplo de função para gerar link de confirmação de email
+function gerarLinkConfirmacao(token) {
+  return `${baseUrl}/verify-email?token=${token}`;
+}
+
+// Exemplo rápido: rota pra testar o link de confirmação (pode remover depois)
+app.get('/teste-link', (req, res) => {
+  const fakeToken = 'abc123token';
+  const link = gerarLinkConfirmacao(fakeToken);
+  res.send(`Link de confirmação: <a href="${link}">${link}</a>`);
 });
 
 // Inicializar servidor
@@ -63,7 +73,7 @@ async function startServer() {
     
     // Iniciar servidor
     app.listen(PORT, () => {
-      console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+      console.log(`🚀 Servidor rodando em ${baseUrl}`);
       console.log('📊 Sistema de estatísticas reais ativo');
       console.log('🔐 Sistema de autenticação ativo');
       console.log('🎁 Sistema de busca de presentes ativo');
