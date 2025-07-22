@@ -5,7 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const bcrypt = require('bcrypt'); // Se quiser trocar pra bcryptjs, só avisar
+const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken');
 const { router: statsRouter, initializeDatabase } = require('./api/stats');
 const { router: authRouter } = require('./api/auth');
